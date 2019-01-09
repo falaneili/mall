@@ -1,0 +1,1723 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>上善众赢</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <style type="text/css">
+        body {
+            _behavior: url('css/csshover.htc');
+        }
+    </style>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/foxui.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/home_header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+
+    <script>
+        var COOKIE_PRE = 'COOKIE_PRE';
+        var _CHARSET = 'utf-8';
+        var SITEURL = '/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=pc';
+        var SHOP_SITE_URL = '/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=pc';
+        var SHOP_TEMPLATES_URL = '../addons/ewei_shopv2/plugin/pc/template/mobile/default/static';
+    </script>
+    <script src="js/jquery.js"></script>
+    <script src="js/common.js" charset="utf-8"></script>
+    <script src="js/jquery.ui.js"></script>
+    <script src="js/jquery.validation.min.js"></script>
+    <script src="js/jquery.masonry.js"></script>
+    <script src="js/dialog.js" id="dialog_js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var PRICE_FORMAT = '&yen;%s';
+        $(function () {
+            //首页左侧分类菜单
+            $(".category ul.menu").find("li").each(
+                function () {
+                    $(this).hover(
+                        function () {
+                            var cat_id = $(this).attr("cat_id");
+                            var menu = $(this).find("div[cat_menu_id='" + cat_id + "']");
+                            menu.show();
+                            $(this).addClass("hover");
+                            var menu_height = menu.height();
+                            if (menu_height < 60) menu.height(80);
+                            menu_height = menu.height();
+                            var li_top = $(this).position().top;
+                            $(menu).css("top", -li_top + 38);
+                        },
+                        function () {
+                            $(this).removeClass("hover");
+                            var cat_id = $(this).attr("cat_id");
+                            $(this).find("div[cat_menu_id='" + cat_id + "']").hide();
+                        }
+                    );
+                }
+            );
+            $(".head-user-menu dl").hover(function () {
+                    $(this).addClass("hover");
+                },
+                function () {
+                    $(this).removeClass("hover");
+                });
+            $('#button').click(function () {
+                if ($('#keyword').val() == '') {
+                    return false;
+                }
+            });
+        });
+    </script>
+    <script src="js/require.js"></script>
+    <script src="js/myconfig-app.js"></script>
+    <script language="javascript">
+        require(['core'], function (modal) {
+            modal.init({
+                siteUrl: "https://shop.zxnn52.com/",
+                baseUrl: "./js"
+            })
+        });
+    </script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PublicTopLayout Begin -->
+    <div id="append_parent"></div>
+    <div id="ajaxwaitid"></div>
+    <div id="vToolbar" class="nc-appbar">
+        <div class="nc-appbar-tabs" id="appBarTabs">
+            <div class="user TA_delay" nctype="a-barUserInfo">
+                <div class="avatar"><img src="images/default_user_portrait.gif" />
+                </div>
+                <p>我</p>
+            </div>
+            <div class="user-info" nctype="barUserInfo" style="display:none;"><i class="arrow"></i>
+                <div class="avatar"><img src="images/default_user_portrait.gif" />
+                    <div class="frame"></div>
+                </div>
+                <dl>
+                    <a href="login.html"><dt>立即登录</dt></a>
+                </dl>
+            </div>
+            <ul class="tools">
+                <li><a href="cart.html" id="rtoolbar_cart" class="cart TA_delay">
+                        <div class="tools_img TA"></div>
+                        <span class="TA">购物车</span><i id="rtoobar_cart_count_top" class="new_msg">0</i>
+                    </a></li>
+                <li><a href="https://p.qiao.baidu.com/cps/chat?siteId=12627083&userId=26520109" target="_blank" id="chat"
+                        class="chat TA_delay">
+                        <div class="tools_img TA"></div>
+                        <span class="TA">在线客服</span>
+                    </a></li>
+
+                <li><a href="javascript:void(0);" id="gotop" class="gotop TA_delay">
+                        <div class="tools_img TA"></div>
+                        <span class="TA">顶部</span>
+                    </a>
+
+                </li>
+            </ul>
+            <div class="content-box" id="content-compare">
+                <div class="top">
+                    <h3>商品对比</h3>
+                    <a href="javascript:void(0);" class="close" title="隐藏"></a>
+                </div>
+                <div id="comparelist"></div>
+            </div>
+            <div class="content-box" id="content-cart">
+                <div class="top">
+                    <h3>我的购物车</h3>
+                    <a href="javascript:void(0);" class="close" title="隐藏"></a>
+                </div>
+                <div id="rtoolbar_cartlist"></div>
+            </div>
+            <a id="activator" href="javascript:void(0);" class="nc-appbar-hide TA"></a>
+        </div>
+        <div class="nc-hidebar" id="ncHideBar">
+            <div class="nc-hidebar-bg">
+                <div class="user-avatar"><img src="images/default_user_portrait.gif" /></div>
+                <div class="frame"></div>
+                <div class="show"></div>
+            </div>
+        </div>
+    </div>
+    <div class="public-top-layout w">
+        <div class="topbar wrapper">
+            <div class="user-entry">
+                <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc" title="首页" alt="首页"><i class="home"></i>首页</a><i>｜</i>
+                <a href="login.html">登录</a><i>｜</i>
+                <a href="enroll.html">注册</a>
+            </div>
+            <div class="quick-menu">
+                <!--<dl>
+                    <dt><em class="ico_mobile"></em>手机版<i></i>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                <img src="https://shop.zxnn52.com/attachment/images/2/2018/09/u25nn654GrrPQXDr567zNRE6xh54RI.jpg"
+                                    width="88px" ;>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>-->
+                <a href="cart.html" style="color:#777">
+                    <dl>
+                        <dt><em class="ico_store"></em>购物车 (<span id="rtoobar_cart_count">0</span>)
+                        </dt>
+                    </dl>
+                </a>
+                <dl>
+                    <dt><em class="ico_order"></em><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.order">我的订单</a>
+                    </dt>
+                    <!--<dd>
+                        <ul>
+                            <li>
+                                <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.order&status=-2">待付款订单</a>
+                            </li>
+                            <li>
+                                <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.order&status=2">待确认收货</a>
+                            </li>
+                            <li>
+                                <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.order&status=3">已完成交易</a>
+                            </li>
+                        </ul>
+                    </dd>-->
+                </dl>
+                
+                <a href="aid.html" style="color:#777">
+                    <dl>
+                        <dt>帮助中心<i></i>
+                        </dt>
+                    </dl>
+                </a>
+                <dl>
+                    <dt><em class="ico_service"></em>客户服务<i></i></dt>
+                    <dd>
+                        <ul>
+                            <li><a href='https://p.qiao.baidu.com/cps/chat?siteId=12627083&userId=26520109' target="_blank">在线咨询</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //返回顶部
+        backTop = function (btnId) {
+            var btn = document.getElementById(btnId);
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            window.onscroll = set;
+            btn.onclick = function () {
+                //btn.style.opacity="0.5";
+                window.onscroll = null;
+                this.timer = setInterval(function () {
+                    scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    scrollTop -= Math.ceil(scrollTop * 0.1);
+                    if (scrollTop == 0) clearInterval(btn.timer, window.onscroll = set);
+                    if (document.documentElement.scrollTop > 0) document.documentElement.scrollTop =
+                        scrollTop;
+                    if (document.body.scrollTop > 0) document.body.scrollTop = scrollTop;
+                }, 10);
+            };
+
+            function set() {
+                scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                //btn.style.opacity=scrollTop?'1':"0.5";
+            }
+        };
+        backTop('gotop');
+        //动画显示边条内容区域
+        $(function () {
+            $(function () {
+                $('#activator').click(function () {
+                    $('#content-cart').animate({
+                        'right': '-250px'
+                    });
+                    $('#content-compare').animate({
+                        'right': '-250px'
+                    });
+                    $('#vToolbar').animate({
+                            'right': '-60px'
+                        }, 300,
+                        function () {
+                            $('#ncHideBar').animate({
+                                'right': '59px'
+                            }, 300);
+                        });
+                    $('div[nctype^="bar"]').hide();
+                });
+                $('#ncHideBar').click(function () {
+                    $('#ncHideBar').animate({
+                            'right': '-86px'
+                        },
+                        300,
+                        function () {
+                            $('#content-cart').animate({
+                                'right': '-250px'
+                            });
+                            $('#content-compare').animate({
+                                'right': '-250px'
+                            });
+                            $('#vToolbar').animate({
+                                'right': '6px'
+                            }, 300);
+                        });
+                });
+            });
+            $("#compare").click(function () {
+                if ($("#content-compare").css('right') == '-250px') {
+                    loadCompare(false);
+                    $('#content-cart').animate({
+                        'right': '-250px'
+                    });
+                    $("#content-compare").animate({
+                        right: '0px'
+                    });
+                } else {
+                    $(".close").click();
+                    $(".chat-list").css("display", 'none');
+                }
+            });
+            $(".close").click(function () {
+                $(".content-box").animate({
+                    right: '-250px'
+                });
+            });
+
+            $(".quick-menu dl").hover(function () {
+                    $(this).addClass("hover");
+                },
+                function () {
+                    $(this).removeClass("hover");
+                });
+
+            // 右侧bar用户信息
+            $('div[nctype="a-barUserInfo"]').click(function () {
+                $('div[nctype="barUserInfo"]').toggle();
+            });
+
+        });
+    </script>
+    <!-- PublicHeadLayout Begin -->
+    <!-- PublicHeadLayout Begin -->
+    <!-- 顶部广告展开效果-->
+    <div class="wrapper" id="top-banner">
+        <a href="javascript:void(0);" title="关闭"></a>
+    </div>
+    <!-- 顶部广告展开效果-->
+    <div class="header-wrap">
+        <header class="public-head-layout wrapper">
+            <h1 class="site-logo">
+                <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc">
+                    <img src="images/logo.png"
+                        class="pngFix">
+                </a>
+            </h1>
+            <div class="head-search-bar">
+                <div id="search">
+                    <ul class="tab">
+                        <li act="search" class="current"><span>商品</span><i class="arrow"></i></li>
+                    </ul>
+                </div>
+                <form class="search-form" method="get" action="index.php">
+                    <input type="hidden" name="i" value="2">
+                    <input type="hidden" name="c" value="entry">
+                    <input type="hidden" name="m" value="ewei_shopv2">
+                    <input type="hidden" name="do" value="mobile">
+                    <input type="hidden" name="r" value="pc.goods">
+                    <input type="hidden" value="store_list" id="search_act" name="act">
+                    <input placeholder="请输入您要搜索的店铺关键字" name="keywords" id="keyword" type="text" class="input-text"
+                        value="" maxlength="60" x-webkit-speech="" lang="zh-CN" onwebkitspeechchange="foo()"
+                        x-webkit-grammar="builtin:search">
+                    <input type="submit" id="button" value="搜索" class="input-submit">
+                </form>
+
+            </div>
+
+            <div class="head-user-menu" style="position: relative;">
+
+                <div class="site-ad">
+                    <a href="" style="position: absolute;left: -90px;font-size: 15px;top: 29px;color: #c40000;border: 1px solid #f1efef; padding: 11px 50px;font-weight: bold;">上善商城</a>
+                    <a href="" style="position: absolute;left: 90px;font-size: 15px;top: 29px;color: #c40000;border: 1px solid #f1efef; padding: 11px 50px;font-weight: bold;">上善培训</a>
+
+                </div>
+            </div>
+        </header>
+    </div>
+    <!-- PublicHeadLayout End -->
+    <!-- publicNavLayout Begin -->
+    <nav class="public-nav-layout">
+        <div class="wrapper">
+            <div class="all-category">
+                <div class="title"><i></i>
+                    <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods">全部商品分类</a></h3>
+                </div>
+                <div class="category">
+                    <ul class="menu">
+                        <li cat_id="1174" class="odd">
+                            <div class="class">
+                                <span class="arrow"></span>
+                                <h4><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1174">美颜塑身馆</a></h4>
+                            </div>
+                            <div class="sub-class" cat_menu_id="1174" style="display: none; top: 0px;">
+                                <div class="sub-class-content">
+                                    <div class="recommend-class">
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1180"
+                                                title="美妆修复类">美妆修复类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1182"
+                                                title="丰胸美体类">丰胸美体类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1183"
+                                                title="减肥塑身类">减肥塑身类</a></span>
+                                    </div>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1181">美白养颜类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1180">美妆修复类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1182">丰胸美体类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1183">减肥塑身类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="sub-class-right">
+                                </div>
+                            </div>
+                        </li>
+                        <li cat_id="1176" class="odd">
+                            <div class="class">
+                                <span class="arrow"></span>
+                                <h4><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1176">香色恋人馆</a></h4>
+                            </div>
+                            <div class="sub-class" cat_menu_id="1176" style="display: none; top: 0px;">
+                                <div class="sub-class-content">
+                                    <div class="recommend-class">
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1188"
+                                                title="高贵塑身类">高贵塑身类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1189"
+                                                title="性感情趣类">性感情趣类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1190"
+                                                title="淡雅香水类">淡雅香水类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1191"
+                                                title="异性诱惑类">异性诱惑类</a></span>
+                                    </div>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1188">高贵塑身类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1189">性感情趣类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1190">淡雅香水类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1191">异性诱惑类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="sub-class-right">
+                                </div>
+                            </div>
+                        </li>
+                        <li cat_id="1177" class="odd">
+                            <div class="class">
+                                <span class="arrow"></span>
+                                <h4><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1177">营养健康馆</a></h4>
+                            </div>
+                            <div class="sub-class" cat_menu_id="1177" style="display: none; top: 0px;">
+                                <div class="sub-class-content">
+                                    <div class="recommend-class">
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1192"
+                                                title="功能保健类">功能保健类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1193"
+                                                title="营养补充类">营养补充类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1194"
+                                                title="美体塑身类">美体塑身类</a></span>
+                                    </div>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1192">功能保健类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1193">营养补充类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1194">美体塑身类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="sub-class-right">
+                                </div>
+                            </div>
+                        </li>
+                        <li cat_id="1178" class="odd">
+                            <div class="class">
+                                <span class="arrow"></span>
+                                <h4><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1178">滋补养生馆</a></h4>
+                            </div>
+                            <div class="sub-class" cat_menu_id="1178" style="display: none; top: 0px;">
+                                <div class="sub-class-content">
+                                    <div class="recommend-class">
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1196"
+                                                title="壮阳滋阴类">壮阳滋阴类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1197"
+                                                title="气血滋补类">气血滋补类</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1205"
+                                                title="食疗调理类">食疗调理类</a></span>
+                                    </div>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1196">壮阳滋阴类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1197">气血滋补类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1205">食疗调理类</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="sub-class-right">
+                                </div>
+                            </div>
+                        </li>
+                        <li cat_id="1175" class="odd">
+                            <div class="class">
+                                <span class="arrow"></span>
+                                <h4><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1175">型男靓女馆</a></h4>
+                            </div>
+                            <div class="sub-class" cat_menu_id="1175" style="display: none; top: 0px;">
+                                <div class="sub-class-content">
+                                    <div class="recommend-class">
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1184"
+                                                title="套套专场">套套专场</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1185"
+                                                title="情趣专场">情趣专场</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1186"
+                                                title="男人专场">男人专场</a></span>
+                                        <span><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1187"
+                                                title="女人专场">女人专场</a></span>
+                                    </div>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1184">套套专场</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1185">情趣专场</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1186">男人专场</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt style="background: none">
+                                            <h3><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1187">女人专场</a></h3>
+                                        </dt>
+                                        <dd class="goods-class" style="background: none">
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="sub-class-right">
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <ul class="site-menu">
+                <li><a href='index.html' target="_blank">首页</a></li>
+                <li><a href='product.html' target="_blank">美颜塑身馆</a></li>
+                <li><a href='product.html' target="_blank">香色恋人馆</a></li>
+                <li><a href='product.html' target="_blank">营养健康馆</a></li>
+                <li><a href='product.html' target="_blank">滋补养生馆</a></li>
+                <li><a href='product.html' target="_blank">型男靓女馆</a></li>
+                <li><a href='product.html' target="_blank">琼酿补酒馆</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="nch-breadcrumb-layout">
+    </div>
+    <link href="css/member.css" rel="stylesheet" type="text/css">
+    <link href="css/home_goods.css" rel="stylesheet" type="text/css">
+    <link href="css/newGoods.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/cloudzoom.js"></script>
+    <style type="text/css">
+        .ncs-goods-picture .levelB,
+        .ncs-goods-picture .levelC {
+            cursor: url("images/shop/zoom.cur"), pointer;
+        }
+
+        .ncs-goods-picture .levelD {
+            cursor: url("images/shop/hand.cur"), move \9;
+        }
+
+        .nch-sidebar-all-viewed {
+            display: block;
+            height: 20px;
+            text-align: center;
+            padding: 9px 0;
+        }
+
+        .fui-sale-cell {
+            padding-top: 5px
+        }
+
+        .fui-cell-text {
+            font-size: 0.65rem;
+            line-height: 0.65rem;
+            color: #000;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sale-line {
+            height: 1.2rem;
+            line-height: 1.2rem;
+            vertical-align: middle;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.6rem;
+            color: #666;
+        }
+
+        .sale-tip {
+            /*height: 0.65rem;*/
+            line-height: 0.55rem;
+            padding: 0.06rem 0.15rem 0.04rem;
+            border: 1px solid #ff5555;
+            color: #ff5555;
+            display: inline-block;
+            vertical-align: middle;
+            border-radius: 0.1rem;
+            font-size: 0.55rem;
+        }
+    </style>
+
+    <div class="wrapper pr fui-page">
+        <div id="gc_goods_recommend_div"><a href="index.html">首页</a> &gt; <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1174">美颜塑身馆</a>
+            &gt; <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods&cate=1181">美白养颜类</a></div>
+        <input type="hidden" id="lockcompare" value="unlock" />
+        <div class="ncs-detail ownshop">
+            <!-- S 商品图片 -->
+
+            <div id="ncs-goods-picture" class="ncs-goods-picture">
+                <div class="gallery_wrap">
+                    <div class="gallery"><img title="鼠标滚轮向上或向下滚动，能放大或缩小图片哦~" src="https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg"
+                            class="cloudzoom" data-cloudzoom="zoomImage: 'https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg'"></div>
+                </div>
+                <div class="controller_wrap">
+                    <div class="controller">
+                        <ul>
+                            <li>
+                                <img title="鼠标滚轮向上或向下滚动，能放大或缩小图片哦~" class='cloudzoom-gallery' src="https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg"
+                                    data-cloudzoom="useZoom: '.cloudzoom', image: 'https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg', zoomImage: 'https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg' "
+                                    width=" 60" height="60">
+                            </li>
+                            <li>
+                                <img title="鼠标滚轮向上或向下滚动，能放大或缩小图片哦~" class='cloudzoom-gallery' src="https://shop.zxnn52.com/attachment/images/2/2018/07/M9e7zbo3ovnO8Bl8M2DEz8d38TZO7a.jpg"
+                                    data-cloudzoom="useZoom: '.cloudzoom', image: 'https://shop.zxnn52.com/attachment/images/2/2018/07/M9e7zbo3ovnO8Bl8M2DEz8d38TZO7a.jpg', zoomImage: 'https://shop.zxnn52.com/attachment/images/2/2018/07/M9e7zbo3ovnO8Bl8M2DEz8d38TZO7a.jpg' "
+                                    width=" 60" height="60">
+                            </li>
+                            <li>
+                                <img title="鼠标滚轮向上或向下滚动，能放大或缩小图片哦~" class='cloudzoom-gallery' src="https://shop.zxnn52.com/attachment/images/2/2018/07/TVd0cK0XoccfhHOX6obC00kdOz8zhO.jpg"
+                                    data-cloudzoom="useZoom: '.cloudzoom', image: 'https://shop.zxnn52.com/attachment/images/2/2018/07/TVd0cK0XoccfhHOX6obC00kdOz8zhO.jpg', zoomImage: 'https://shop.zxnn52.com/attachment/images/2/2018/07/TVd0cK0XoccfhHOX6obC00kdOz8zhO.jpg' "
+                                    width=" 60" height="60">
+                            </li>
+                            <li>
+                                <img title="鼠标滚轮向上或向下滚动，能放大或缩小图片哦~" class='cloudzoom-gallery' src="https://shop.zxnn52.com/attachment/images/2/2018/07/vhzIh63fJD65zO6hD56uU3Xxfc1q5I.jpg"
+                                    data-cloudzoom="useZoom: '.cloudzoom', image: 'https://shop.zxnn52.com/attachment/images/2/2018/07/vhzIh63fJD65zO6hD56uU3Xxfc1q5I.jpg', zoomImage: 'https://shop.zxnn52.com/attachment/images/2/2018/07/vhzIh63fJD65zO6hD56uU3Xxfc1q5I.jpg' "
+                                    width=" 60" height="60">
+                            </li>
+                            <li>
+                                <img title="鼠标滚轮向上或向下滚动，能放大或缩小图片哦~" class='cloudzoom-gallery' src="https://shop.zxnn52.com/attachment/images/2/2018/09/JBp4Beuew3E4Ue3Wuz1E14aztZA9B9.jpg"
+                                    data-cloudzoom="useZoom: '.cloudzoom', image: 'https://shop.zxnn52.com/attachment/images/2/2018/09/JBp4Beuew3E4Ue3Wuz1E14aztZA9B9.jpg', zoomImage: 'https://shop.zxnn52.com/attachment/images/2/2018/09/JBp4Beuew3E4Ue3Wuz1E14aztZA9B9.jpg' "
+                                    width=" 60" height="60">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- S 商品基本信息 -->
+            <div class="ncs-goods-summary">
+                <div class="name">
+                    <h1>韩后（Hanhoo)水漾嫩白达人面膜组合(樱花+巨藻+山羊奶+ 红石榴)补水面膜各3共12片【特惠套装价】</h1>
+                    <strong>保湿 嫩肤 补水 控油护肤品</strong>
+                </div>
+                <div class="ncs-meta">
+                    <!-- S 商品发布价格 -->
+                    <ul>
+                        <li class="goods-price">商&nbsp;城&nbsp;价：<strong>&yen;53.00</strong></li>
+                        <li class="cost-price">&yen;108.00</li>
+
+                    </ul>
+                    <!-- E 商品发布价格 -->
+                    <div class="ncs-goods-code"></div>
+                </div>
+
+                <!-- begin  -->
+                <div class="ncs-pinglun">
+                    <a href="#ncGoodsRate">销量 <span>3843</span></a>
+                </div>
+                <!-- end -->
+                <div class="ncs-key" style="padding: 10px 10px">
+
+                    <i class='icon icon-roundcheck text-danger '></i>货到付款 <i class='icon icon-roundcheck text-danger '></i>正品保证
+                    <i class='icon icon-roundcheck text-danger'></i>7天退换 </div>
+                <div id="picker-options">
+
+                    <div class="fui-cell-group">
+                        <div class="fui-cell">
+                            <div class="fui-cell-label">数量</div>
+                            <div class="fui-cell-info"></div>
+                            <div class="fui-cell-mask noremark">
+                                <div class="fui-number">
+                                    <input id="min" class="minus" name="" type="button" value="-" />
+                                    <input id="text_box" class="num" type="tel" name="" value="1">
+                                    <input id="add" class="plus" name="" type="button" value="+" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        //获得文本框对象
+                        var t = $("#text_box");
+                        //初始化数量为1,并失效减
+                        $('#min').attr('disabled', true);
+                        //数量增加操作
+                        $("#add").click(function () {
+                            // 给获取的val加上绝对值，避免出现负数
+                            t.val(Math.abs(parseInt(t.val())) + 1);
+                            if (parseInt(t.val()) != 1) {
+                                $('#min').attr('disabled', false);
+                            };
+                        })
+                        //数量减少操作
+                        $("#min").click(function () {
+                            t.val(Math.abs(parseInt(t.val())) - 1);
+                            if (parseInt(t.val()) == 1) {
+                                $('#min').attr('disabled', true);
+                            };
+                        })
+
+                    });
+                </script>
+
+                <div class="ncs-logistics">
+                    <!-- S 物流与运费新布局展示  -->
+                    <dl id="ncs-freight" class="ncs-freight">
+
+                        <dd class="ncs-freight_box" style="    width: 100%;">
+                            <div id="ncs-freight-selector" class="ncs-freight-select">
+
+
+                                <div id="ncs-freight-prompt" style="padding-left: 10px"><strong>有货</strong>
+                                    <span>快递: 包邮</span>
+                                </div>
+                        </dd>
+                    </dl>
+                    <!-- S 物流与运费新布局展示  -->
+                </div>
+
+                <!-- S 购买数量及库存 -->
+                <div class="ncs-buy">
+
+                    <div class="ncs-btn">
+                        <!-- v3-b10 限制购买-->
+                        <!-- 加入购物车-->
+                        <a href="javascript:void(0);" nctype="addcart_submit" class="addcart cartbtn" title="添加购物车"><i
+                                class="icon-shopping-cart"></i>添加购物车</a>
+                        <!-- 立即购买-->
+                        <a href="javascript:void(0);" nctype="buynow_submit" class="buynow buybtn " title="立即购买">立即购买</a>
+
+                        <!-- v3-b10 end-->
+
+                        <!-- S 加入购物车弹出提示框 -->
+                        <div class="ncs-cart-popup">
+                            <dl>
+                                <dt>成功添加到购物车<a title="关闭" onClick="$('.ncs-cart-popup').css({'display':'none'});">X</a>
+                                </dt>
+                                <!--<dd>购物车共有 <strong id="bold_num"></strong> 种商品 总金额为：<em id="bold_mly" class="saleP"></em>
+                                </dd>-->
+                                <dd class="btns">
+                                    <a href="javascript:void(0);" class="ncs-btn-mini ncs-btn-green" onclick="location.href='/index.php?act=cart'">查看购物车</a>
+                                    <a href="javascript:void(0);" class="ncs-btn-mini" value="" onclick="$('.ncs-cart-popup').css({'display':'none'});">继续购物</a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <script>
+                        $(function(){
+                            $(".addcart").bind("click", function(){
+                                $(".ncs-cart-popup").css("display", "block");
+                            });
+                        });
+                        </script>
+                        <!-- E 加入购物车弹出提示框 -->
+                    </div>
+                    <!-- E 购买按钮 -->
+                </div>
+                <!-- E 购买数量及库存 -->
+
+                <!--E 商品信息 -->
+            </div>
+
+            <!--S 店铺信息-->
+            <div style="position: absolute; z-index: 2; top: -1px; right: -1px;">
+
+                <!--S 看了又看 -->
+                <div class="ncs-lal">
+                    <div class="title">看了又看</div>
+                    <div class="content">
+                        <ul>
+                            <li>
+                                <div class="goods-pic"><a title="蒙投丽雪  网红新品 提拉紧实抗皱v面膜5片精装" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=612">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/11/lmptI4kq3IBk9BnM7NFTTm445Z9P1C.jpg"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/11/lmptI4kq3IBk9BnM7NFTTm445Z9P1C.jpg" />
+                                    </a></div>
+                                <div class="goods-price">￥86.60</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="MINILOVE 微爱女用提升凝露助喷剂成人情趣性用品 凝露10片" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=290">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/08/IfCLLU5Uo7atb8m75l5O8LZFT5Ctyt.jpg"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/08/IfCLLU5Uo7atb8m75l5O8LZFT5Ctyt.jpg" />
+                                    </a></div>
+                                <div class="goods-price">￥8.00</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="名流 避孕套男用女用 安全套 超薄套套 计生情趣性用品 性感五合一 30只装" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=505">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/09/DFfdpApp4FrA2z4LpGl8lKk8pGabkA.png"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/09/DFfdpApp4FrA2z4LpGl8lKk8pGabkA.png" />
+                                    </a></div>
+                                <div class="goods-price">￥26.30</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="艾迪莎夏怡露  脚臭腋臭止汗露喷雾【买二送一】" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=526">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/11/E7E7QE7Bce8GBcg7cLE8GQ8QCuucG1.jpg"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/11/E7E7QE7Bce8GBcg7cLE8GQ8QCuucG1.jpg" />
+                                    </a></div>
+                                <div class="goods-price">￥48.60</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="泊泉雅无瑕气垫BB霜 补水保湿自然遮瑕打底裸妆修饰肤色+替换装15g" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=394">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/11/ob0ZCYSZkGcSoYj8jYJpYdKt9Iyo99.jpg"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/11/ob0ZCYSZkGcSoYj8jYJpYdKt9Iyo99.jpg" />
+                                    </a></div>
+                                <div class="goods-price">￥48.00</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="轻奢刺绣开档镂空丁字裤 轻奢刺绣开档镂空女士诱惑 情趣内裤低腰美臀T裤3014" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=573">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/09/A7O888kw1LM7tYWhhlG7mg44G4y1xk.png"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/09/A7O888kw1LM7tYWhhlG7mg44G4y1xk.png" />
+                                    </a></div>
+                                <div class="goods-price">￥29.80</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="名流 超薄颗粒螺纹 激情六合一 安全套 共54只 有型丝薄成人计生性用品" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=687">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/11/LQfaSqbw5AckAAFbcCPWWyf6K6PJ65.png"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/11/LQfaSqbw5AckAAFbcCPWWyf6K6PJ65.png" />
+                                    </a></div>
+                                <div class="goods-price">￥39.80</div>
+                            </li>
+                            <li>
+                                <div class="goods-pic"><a title="奕香 花果香高档法国品牌女神香水30ml 持久淡香" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=429">
+                                        <img alt="" src="https://shop.zxnn52.com/attachment/images/2/2018/11/bo4WxIXS4BIdppGh3isIiiwhgZgow4.jpg"
+                                            rel="lazy" data-url="https://shop.zxnn52.com/attachment/images/2/2018/11/bo4WxIXS4BIdppGh3isIiiwhgZgow4.jpg" />
+                                    </a></div>
+                                <div class="goods-price">￥39.90</div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!--E 看了又看 -- >
+           </div>
+        <!--E 店铺信息 -->
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="content" class="ncs-goods-layout expanded">
+            <div class="ncs-goods-main" id="main-nav-holder">
+                <div class="tabbar pngFix" id="main-nav">
+                    <div class="ncs-goods-title-nav">
+                        <ul id="categorymenu">
+                            <li class="current"><a id="tabGoodsIntro" href="#">商品详情</a></li>
+                            <!--<li><a id="tabGoodsRate" href="#">商品评价<em>(26)</em></a></li>-->
+                        </ul>
+                        <div class="switch-bar"><a href="javascript:void(0)" id="fold">&nbsp;</a></div>
+                    </div>
+                </div>
+                <div class="ncs-intro">
+                    <div class="content bd" id="ncGoodsIntro">
+                        <ul class="nc-goods-sort">
+                            <li> 品牌：Hanhoo/韩后</li>
+                            <li> 商品名称：韩后蚕丝面膜</li>
+                            <li> 分类：面膜</li>
+                            <li> 适用性别：通用</li>
+                            <li> 功效：补水，保湿，细致毛孔，控油平衡，晒后修复</li>
+                            <li> 商品毛重：0.04 kg/片</li>
+                            <li>面贴膜数量：12片</li>
+                            <li>产品类别：贴片式</li>
+                        </ul>
+                        <div class="ncs-goods-info-content">
+                            <div class="default">
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/yXuXxBlfxll9nLtxnUxkuFNne5uXLK.jpg"
+                                        width="100%" alt="images/2/2018/07/yXuXxBlfxll9nLtxnUxkuFNne5uXLK.jpg" /><img
+                                        src="https://shop.zxnn52.com/attachment/images/2/2018/07/Auwb5MR6KYBa2Z7rM9b48Kab4R87y9.jpg"
+                                        width="100%" /><br /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/E6pKnDMmYW6rZki6I7Du7gIDWIkGuU.jpg"
+                                        width="100%" alt="images/2/2018/07/E6pKnDMmYW6rZki6I7Du7gIDWIkGuU.jpg" /><img
+                                        src="https://shop.zxnn52.com/attachment/images/2/2018/07/Fj643D6X4KO62p2e43FnPErQc2z7xn.jpg"
+                                        width="100%" style="" alt="https://shop.zxnn52.com/attachment/images/2/2018/07/Fj643D6X4KO62p2e43FnPErQc2z7xn.jpg" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/X89Pm8219BB9UPB2oLl98LB92mPM1P.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/UNW488g893WbZBABM4g5RgW4fibB8i.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/lcpBLLbhLbbllvbKBonbhpKCnN8lcN.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/GmFq8gqN75xQqqGah97XaG7G7h8q78.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/l63sU0KY3eIOYoEKu606YOV60VV0ee.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/GcCWGC4zR3weJffi13cr9j1Z6i7e9Q.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/GM5EM5XZM2RzrZJJJ2G8YEem42YLz5.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/HEcQ1CC27BuBaiQuJE1P9i2L1EEu5r.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/Yv9woaa7MPwvZGESMw2D9SJgw2Dv5Z.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/y6OMO1gt2NgGO2O6PY5n1Tnm66yZ22.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/dvCNQ0Nsc1KjJvPKjc2QEEoQeSQBVW.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/Nww7Uf6f6fDY000S60s5a6DUXfz700.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/E27i6dxi8e7888p8FFRNFp2F3XWPN6.jpg"
+                                        width="100%" style="" /></p>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/07/yg9ZjJ8c7jcJ18gBj142hz89b92c7b.jpg"
+                                        width="100%" style="" /></p>
+                                <p><br /></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="ncs-comment">
+                    <div class="ncs-goods-title-bar hd">
+                        <h4><a href="javascript:void(0);">商品评价</a></h4>
+                    </div>
+                    <div class="ncs-goods-info-content bd" id="ncGoodsRate">
+                        <div class="top">
+                            <div class="rate">
+                                <p><strong>96</strong><sub>%</sub>好评</p>
+                                <span>共有26人参与评分</span>
+                            </div>
+                            <div class="percent">
+                                <dl>
+                                    <dt>好评<em>(96%)</em></dt>
+                                    <dd><i style="width: 96%"></i></dd>
+                                </dl>
+                                <dl>
+                                    <dt>中评<em>(3 %)</em></dt>
+                                    <dd>
+                                        <i style="width: 3%"></i>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>差评<em>(0 %)</em></dt>
+                                    <dd>
+                                        <i style="width: 0%"></i>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="btns"><span>您可对已购商品进行评价</span>
+                                <p><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.order" class="ncs-btn ncs-btn-red"
+                                        target="_blank"><i class="icon-comment-alt"></i>评价商品</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="ncs-goods-title-nav">
+                            <ul id="comment_tab">
+                                <li data-type="all" class="current"><a href="javascript:void(0);">商品评价(26)</a></li>
+                                <li data-type="good"><a href="javascript:void(0);">好评(25)</a></li>
+                                <li data-type="normal"><a href="javascript:void(0);">中评(1)</a>
+                                </li>
+                                <li data-type="bad"><a href="javascript:void(0);">差评(0)</a></li>
+                            </ul>
+                        </div>
+                        <!-- 商品评价内容部分 
+                        <div id="goodscomments" class="ncs-commend-main"></div>
+                    </div>
+                </div>-->
+
+                <div class="ncg-salelog">
+                </div>
+
+                <div class="ncs-recommend">
+                </div>
+            </div>
+            <div class="ncs-sidebar">
+                <div class="ncs-sidebar-container ncs-top-bar">
+                    <div class="title">
+                        <h4><i class="c1"></i>手机扫描购买更多优惠</h4>
+                    </div>
+                    <div class="content">
+                        <div id="hot_sales_list" class="ncs-top-panel">
+                            <div class="ncs-goods-code"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="ncs-sidebar-container ncs-top-bar">
+                    <div class="title">
+                        <h4><i class="c2"></i>在线客服</h4>
+                    </div>
+                    <div class="content">
+                        <div id="hot_sales_list" class="ncs-top-panel">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ncs-sidebar-container ncs-top-bar">
+                    <div class="title">
+                        <h4><i class="c3"></i>商品推荐</h4>
+                    </div>
+                    <div class="content">
+                        <div class="recommand_list">
+                            <ul>
+                                <li>
+                                    <dl>
+                                        <dt class="goods-thumb">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=593">
+                                                <img src="https://shop.zxnn52.com/attachment/images/2/2018/11/UHpn0VZhBP0s0yp73gs44VwC7LY30P.jpg"
+                                                    alt="温碧泉力透白臻白凝润四件套  补水保湿滋润套盒" />
+                                            </a>
+                                        </dt>
+                                        <dd class="goods-name">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=593"
+                                                title="温碧泉力透白臻白凝润四件套  补水保湿滋润套盒">
+
+                                                温碧泉力透白臻白凝润四件套 补水保湿滋润套盒</a>
+                                        </dd>
+
+                                        <dd class="goods-price"><em>&yen;156.00</em></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="goods-thumb">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=639">
+                                                <img src="https://shop.zxnn52.com/attachment/images/2/2018/09/h3u3SAjAAyssiYeSIa7E39KjIo8y33.jpg"
+                                                    alt="梦姿色美人收腹束腰美体瘦身提臀无痕连体塑身衣8278#（两件套特惠装）" />
+                                            </a>
+                                        </dt>
+                                        <dd class="goods-name">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=639"
+                                                title="梦姿色美人收腹束腰美体瘦身提臀无痕连体塑身衣8278#（两件套特惠装）">
+
+                                                梦姿色美人收腹束腰美体瘦身提臀无痕连体塑身衣8278#（两件套特惠装）</a>
+                                        </dd>
+
+                                        <dd class="goods-price"><em>&yen;66.00</em></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="goods-thumb">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=445">
+                                                <img src="https://shop.zxnn52.com/attachment/images/2/2018/09/TU7gi134GkUU3G1sg1KWgKsMVKs3sK.png"
+                                                    alt="大卫贝克倾心女士香水持久清新性感" />
+                                            </a>
+                                        </dt>
+                                        <dd class="goods-name">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=445"
+                                                title="大卫贝克倾心女士香水持久清新性感">
+
+                                                大卫贝克倾心女士香水持久清新性感</a>
+                                        </dd>
+
+                                        <dd class="goods-price"><em>&yen;168.00</em></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="goods-thumb">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=322">
+                                                <img src="https://shop.zxnn52.com/attachment/images/2/2018/11/q1OTnZ80ZiVWa7POmw88sw706nPW7V.jpg"
+                                                    alt="伊莲雅丹女士礼盒甜心香水【送伊莲雅丹COCO女神香水 持久淡香3ml】" />
+                                            </a>
+                                        </dt>
+                                        <dd class="goods-name">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=322"
+                                                title="伊莲雅丹女士礼盒甜心香水【送伊莲雅丹COCO女神香水 持久淡香3ml】">
+
+                                                伊莲雅丹女士礼盒甜心香水【送伊莲雅丹COCO女神香水 持久淡香3ml】</a>
+                                        </dd>
+
+                                        <dd class="goods-price"><em>&yen;128.00</em></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="goods-thumb">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=217">
+                                                <img src="https://shop.zxnn52.com/attachment/images/2/2018/07/UmEqQzWwqMGQm39zuH60m79MG0dU3M.jpg"
+                                                    alt="大卫贝克梦中情人清新持久女士香水法国香精50ml" />
+                                            </a>
+                                        </dt>
+                                        <dd class="goods-name">
+                                            <a target="_blank" href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=217"
+                                                title="大卫贝克梦中情人清新持久女士香水法国香精50ml">
+
+                                                大卫贝克梦中情人清新持久女士香水法国香精50ml</a>
+                                        </dd>
+
+                                        <dd class="goods-price"><em>&yen;158.00</em></dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ncs-sidebar-container ncs-top-bar">
+                    <div class="title">
+                        <h4><i class="c3"></i>热销排行</h4>
+                    </div>
+                    <div class="content">
+                        <div id="hot_sales_list" class="ncs-top-panel">
+                            <ol>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=264">独爱
+                                                男用喷剂印度神油成人情趣性用品 伽拉陀印度神油10ml</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=264">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/QibH14KzhQZ1qqqh52BzqOKKHC1QHQ.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/QibH14KzhQZ1qqqh52BzqOKKHC1QHQ.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="独爱 男用喷剂印度神油成人情趣性用品 伽拉陀印度神油10ml">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">35.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>3876</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=224">韩后（Hanhoo)水漾嫩白达人面膜组合(樱花+巨藻+山羊奶+
+                                                红石榴)补水面膜各3共12片【特惠套装价】</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=224">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/07/t7L19XMF4Km191xkfCgRc784mC716y.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="韩后（Hanhoo)水漾嫩白达人面膜组合(樱花+巨藻+山羊奶+ 红石榴)补水面膜各3共12片【特惠套装价】">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">53.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>3835</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=268">独爱（DU.AI）
+                                                延时喷剂外用持久印度神油口交不麻木延迟喷雾男用成人情趣性爱用品 勃源氏中草药配方20ml</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=268">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/T4x88wSFuE57zfz7wqxF6644IZXfIi.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/T4x88wSFuE57zfz7wqxF6644IZXfIi.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="独爱（DU.AI） 延时喷剂外用持久印度神油口交不麻木延迟喷雾男用成人情趣性爱用品 勃源氏中草药配方20ml">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">128.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>3761</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=236">一枝春美白嫩肤控油祛痘补水面膜12片特惠装</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=236">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/07/poAiEjTOrP4E6FaAOKJTqK4ni6TFtR.png"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/07/poAiEjTOrP4E6FaAOKJTqK4ni6TFtR.png"
+                                                        onload="javascript:DrawImage(this,100,100);" title="一枝春美白嫩肤控油祛痘补水面膜12片特惠装">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">18.90</dd>
+                                        <dd class="selled pngFix">售出：<strong>3287</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=535">韩后茶蕊嫩白肌肤珍藏礼盒5件套水乳护肤美白保湿护肤品【送韩后面膜5片】</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=535">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/11/jL0EelJqar0e9ix210EJpp0lqj9QlZ.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/11/jL0EelJqar0e9ix210EJpp0lqj9QlZ.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="韩后茶蕊嫩白肌肤珍藏礼盒5件套水乳护肤美白保湿护肤品【送韩后面膜5片】">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">289.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>2886</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=639">梦姿色美人收腹束腰美体瘦身提臀无痕连体塑身衣8278#（两件套特惠装）</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=639">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/09/h3u3SAjAAyssiYeSIa7E39KjIo8y33.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/09/h3u3SAjAAyssiYeSIa7E39KjIo8y33.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="梦姿色美人收腹束腰美体瘦身提臀无痕连体塑身衣8278#（两件套特惠装）">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">66.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>2865</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=401">泊泉雅蓝莓美肌精华液原液精华乳5瓶</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=401">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/11/KUkGY3DTh38b30h3z04dGbGzbZ4d0Y.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/11/KUkGY3DTh38b30h3z04dGbGzbZ4d0Y.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="泊泉雅蓝莓美肌精华液原液精华乳5瓶">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">13.80</dd>
+                                        <dd class="selled pngFix">售出：<strong>2723</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=289">古圣堂
+                                                延时湿巾印度神油男用不麻木可口交印度神油湿巾10片装</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=289">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/Zh601YhY0h118Y0LUPz8jx0Du0XlUl.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/Zh601YhY0h118Y0LUPz8jx0Du0XlUl.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="古圣堂 延时湿巾印度神油男用不麻木可口交印度神油湿巾10片装">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">6.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>2568</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=250">Kiss
+                                                Toy 多频加温吮吸震动棒女用自慰器口交阴蒂高潮G点刺激抽插振动av按摩棒成人情趣性用品</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=250">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/rLv3L92dNFIgnOQiBVi9qimmv3nN3i.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/rLv3L92dNFIgnOQiBVi9qimmv3nN3i.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="Kiss Toy 多频加温吮吸震动棒女用自慰器口交阴蒂高潮G点刺激抽插振动av按摩棒成人情趣性用品">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">326.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>2360</strong>笔</dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=305">激夫
+                                                延时湿巾男用延时不麻木 一盒10片</a>
+                                        </dt>
+                                        <dd class="goods-pic">
+                                            <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail&id=305">
+                                                <span class="thumb size40"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/mFSkxfifnjJiofPnHn1SKFFFto2fX4.jpg"
+                                                        onload="javascript:DrawImage(this,40,40);"></span>
+                                            </a>
+                                            <p>
+                                                <span class="thumb size100"><i></i>
+                                                    <img src="https://shop.zxnn52.com/attachment/images/2/2018/08/mFSkxfifnjJiofPnHn1SKFFFto2fX4.jpg"
+                                                        onload="javascript:DrawImage(this,100,100);" title="激夫 延时湿巾男用延时不麻木 一盒10片">
+                                                </span>
+                                            </p>
+                                        </dd>
+                                        <dd class="price pngFix">3.00</dd>
+                                        <dd class="selled pngFix">售出：<strong>2321</strong>笔</dd>
+                                    </dl>
+                                </li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="option-picker">
+        <div class="option-picker">
+
+        <div class="option-picker-inner" style="max-width:800px;margin: 0px auto">
+
+            <div class="option-picker-options">
+                <!--<%each specs as spec%>
+                <div class="option-picker-cell option spec">
+                    <div class="title"><%spec.title%></div>
+                    <div class="select">
+                        <%each spec.items as item%>
+                        <a href="javascript:;" class="btn btn-default btn-sm nav spec-item" data-id="<%item.id%>"
+                           data-thumb="<%item.thumb%>"><%if item.thumb%> <img src="<%item.thumb%>" width="35" height="35"><%/if%> <%item.title%> </a>
+                        <%/each%>
+                    </div>
+                </div>
+                <%/each%>
+                <%=diyformhtml%>-->
+                <div class="fui-cell-group">
+                    <div class="fui-cell">
+                        <div class="fui-cell-label">数量</div>
+                        <div class="fui-cell-info"></div>
+                        <div class="fui-cell-mask noremark">
+                            <div class="fui-number">
+                                <div class="minus">-</div>
+                                <input class="num" type="tel" name="" value="1"/>
+                                <div class="plus ">+</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="fui-navbar" style="max-width:800px">
+                <a href="javascript:;" class="nav-item btn cartbtn" style='display:none'>加入购物车</a>
+                <a href="javascript:;" class="nav-item btn buybtn" style='display:none'>立刻购买</a>
+                <a href="javascript:;" class="nav-item btn confirmbtn" style='display:none'>确定</a>
+            </div>
+        </div>
+    </div>
+</script>
+    <script type="text/javascript" src="js/jquery.qrcode.min.js"></script>
+
+    <script type="text/javascript">
+        goodsid: "224";
+        $(function () {
+            $(".ncs-goods-code").html('')
+            $(".ncs-goods-code").qrcode({
+                typeNumber: 0, //计算模式
+                correctLevel: 0, //纠错等级
+                width: 100,
+                height: 100,
+                text: "https://shop.zxnn52.com/app/./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail&id=224" /*https://shop.zxnn52.com/app/./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail&id=224*/
+            });
+
+            // 放大镜效果 产品图片
+            CloudZoom.quickStart();
+
+            // 图片切换效果
+            $(".controller li").first().addClass('current');
+            $('.controller').find('li').mouseover(function () {
+                $(this).first().addClass("current").siblings().removeClass("current");
+            });
+
+            // 商品内容介绍Tab样式切换控制
+            $('#categorymenu').find("li").click(function () {
+                $('#categorymenu').find("li").removeClass('current');
+                $(this).addClass('current');
+            });
+            // 商品详情默认情况下显示全部
+            $('#tabGoodsIntro').click(function () {
+                $('.bd').css('display', '');
+                $('.hd').css('display', '');
+            });
+            // 点击地图隐藏其他以及其标题栏
+            $('#tabStoreMap').click(function () {
+                $('.bd').css('display', 'none');
+                $('#ncStoreMap').css('display', '');
+                $('.hd').css('display', 'none');
+            });
+            // 点击评价隐藏其他以及其标题栏
+            $('#tabGoodsRate').click(function () {
+                $('.bd').css('display', 'none');
+                $('#ncGoodsRate').css('display', '');
+                $('.hd').css('display', 'none');
+            });
+            // 点击成交隐藏其他以及其标题
+            $('#tabGoodsTraded').click(function () {
+                $('.bd').css('display', 'none');
+                $('#ncGoodsTraded').css('display', '');
+                $('.hd').css('display', 'none');
+            });
+
+            //评价列表
+            $('#comment_tab').on('click', 'li', function () {
+                $('#comment_tab li').removeClass('current');
+                $(this).addClass('current');
+                load_comments($(this).attr('data-type'));
+            });
+            //规格列表
+            $('.ncs-view div').on('click', function () {
+                $(this).addClass('specColor').siblings().removeClass('specColor');
+                $('.controller li').eq($(this).index()).addClass('current').siblings().removeClass(
+                    'current');
+                $('.gallery img').attr('src', $('.controller li img').eq($(this).index()).attr('src'));
+                // $(this).find('.clickImg').addClass('cloudzoom-gallery').parents('.ncs-spec div').siblings().find('.clickImg').removeClass('cloudzoom-gallery');
+            });
+            $('.ncs-view div').on('click', function () {
+                $(this).addClass('specColor').siblings().removeClass('specColor');
+                $('.controller li').eq($(this).index()).addClass('current').siblings().removeClass(
+                    'current');
+                $('.gallery img').attr('src', $('.controller li img').eq($(this).index()).attr('src'));
+                // $(this).find('.clickImg').addClass('cloudzoom-gallery').parents('.ncs-spec div').siblings().find('.clickImg').removeClass('cloudzoom-gallery');
+            });
+            $('.ncs-view div').mouseover(function () {
+                $('.controller li').eq($(this).index()).addClass('current').siblings().removeClass(
+                    'current');
+            });
+
+            $('.ncs-list div').on('click', function () {
+                $(this).addClass('specColor').siblings().removeClass('specColor');
+            });
+
+
+        });
+
+        function load_comments(level) {
+            //console.info(level);
+            var url =
+                './index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.goods.detail.get_comment_list&id=224&page=1&getcount=1';
+            url += '&level=' + level;
+
+            $("#goodscomments").load(url, function () {
+
+            });
+        }
+
+        load_comments('all');
+    </script>
+    <!--<script language="javascript">
+        require(['js/detail.js'], function (modal) {
+
+            modal.init({
+                goodsid: "224"
+            });
+        });
+    </script>
+    <script language="javascript">
+        require(['js/detail.js'], function (modal) {
+
+            modal.init({
+                goodsid: "224"
+            });
+
+            // core.json('goods/picker', {
+            //     id: modal.goodsid
+            // }, function(ret) {
+            //     if (ret.status == 0) {
+            //         FoxUI.toast.show('未找到商品!');
+            //         return
+            //     }
+            //     modal.goods = ret.result.goods;
+            //     modal.specs = ret.result.specs;
+            //     modal.options = ret.result.options;
+            //     if (modal.goods.unit == '') {
+            //         modal.goods.unit = '件'
+            //     }
+            //     $('.ncs-figure-input', $('.ncs-buy')).numbers({
+            //         value: modal.total,
+            //         max: modal.goods.maxbuy,
+            //         min: modal.goods.minbuy,
+            //         minToast: "{min}" + modal.goods.unit + "起售",
+            //         maxToast: "最多购买{max}" + modal.goods.unit,
+            //         callback: function(num) {
+            //             modal.total = num
+            //         }
+            //     });
+
+            // }, true, false);
+
+
+        });
+    </script>-->
+
+    <div id="faq">
+        <div class="wrapper">
+            <ul>
+                <li>
+                    <dl class="s1">
+                        <dt>新手入门</dt>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=13"
+                                title="注册成为会员"> 注册成为会员 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=14"
+                                title="积分规则"> 积分规则 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=26"
+                                title="礼品免费领取须知"> 礼品免费领取须知 </a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl class="s2">
+                        <dt>支付方式</dt>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=22"
+                                title="优惠券支付"> 优惠券支付 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=17"
+                                title="支付宝支付"> 支付宝支付 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=16"
+                                title="微信支付"> 微信支付 </a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl class="s3">
+                        <dt>售后服务</dt>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=25"
+                                title="7天无理由退货规则"> 7天无理由退货规则 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=20"
+                                title="联系卖家"> 联系卖家 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=18"
+                                title="退换货流程"> 退换货流程 </a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl class="s4">
+                        <dt>购物指南</dt>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=24"
+                                title="购物流程"> 购物流程 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=23"
+                                title="常见问题"> 常见问题 </a></dd>
+                        <dd><a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa.detail&mk=detail&id=21"
+                                title="修改收货地址"> 修改收货地址 </a></dd>
+                    </dl>
+                </li>
+                <span style="float: left;">
+                    <li class="kefu-con">
+                        <dl>
+                            <dt>联系我们</dt>
+                            <dd>
+                                <!-- <i class="icon-tel"></i> -->
+                                <div><strong>400-100-3893</strong>
+                                    <p>周一 到 周日 09:00 - 22:00</p>
+                                </div>
+                            </dd>
+                            <dd>
+                                <!--  <i class="icon-chat"></i> -->
+                                <div id="kefu-dibu">
+                                    <ul>
+                                        <li><a href='https://p.qiao.baidu.com/cps/chat?siteId=12627083&userId=26520109'
+                                                target="_blank">在线咨询</a></li>
+
+                                    </ul>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                </span>
+                <span style="float: right;">
+                    <li class="box-qr">
+                        <dl>
+                            <dd>
+                                <p><img src="https://shop.zxnn52.com/attachment/images/2/2018/09/u25nn654GrrPQXDr567zNRE6xh54RI.jpg"></p>
+                                <p>关注微信公众号</p>
+                            </dd>
+                        </dl>
+                    </li>
+                </span>
+            </ul>
+        </div>
+    </div>
+    <div id="footer" class="wrapper">
+        <p><a href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc' target="_blank">首页</a> |
+            <a href='' target="_blank">正品,隐私保障</a> |
+            <a href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=pc.qa.qa' target="_blank">帮助中心</a> |
+        </p>
+        Copyright©2018 众赢商城 <a href="http://www.miitbeian.gov.cn/" target="blank">粤ICP备18082650号-1</a> <a href="https://www.zoonet.cn"
+            target="blank">云网客提供技术支持</a>
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?d9d7b301e500338a4624a15e11c9f8f9";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </div>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+    <!-- 对比 -->
+    <script type="text/javascript">
+        $(function () {
+            // Membership card
+            $('[nctype="mcard"]').membershipCard({
+                type: 'shop'
+            });
+        });
+
+        function fade() {
+            $("img[rel='lazy']").each(function () {
+                var $scroTop = $(this).offset();
+                if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+                    $(this).hide();
+                    $(this).attr("src", $(this).attr("data-url"));
+                    $(this).removeAttr("rel");
+                    $(this).removeAttr("name");
+                    $(this).fadeIn(500);
+                }
+            });
+        }
+        if ($("img[rel='lazy']").length > 0) {
+            $(window).scroll(function () {
+                fade();
+            });
+        };
+        fade();
+    </script>
+
+</body>
+
+</html>
